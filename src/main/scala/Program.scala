@@ -138,12 +138,7 @@ def main() = {
   // Once you've added all the operators, it should be
   // possible to replace the following several definitions with:
   //
-  //    val pattern = "42" || ( ('a' <*>) ~ ('b' <+>) ~ ('c'{3}))
-  //
-
-  val aStar = Star(Character('a'))
-  val bPlus = Concat(Character('b'), Star(Character('b')))
-  val pattern = Union(answer, Concat(aStar, Concat(bPlus, cThree)))
+  val pattern = "42" || ( ('a' <*>) ~ ('b' <+>) ~ ('c'{3}))
 
   require(pattern matches "42")
   require(pattern matches "bccc")
@@ -159,26 +154,7 @@ def main() = {
   // Once you've added all the operators, it should be
   // possible to replace the following several definitions with:
   //
-  //    val message = ("hello" <*>) ~ "world"
-  //
-
-  val hello = Concat(
-    Character('h'),
-    Concat(
-      Character('e'),
-      Concat(Character('l'), Concat(Character('l'), Character('o')))
-    )
-  )
-
-  val world = Concat(
-    Character('w'),
-    Concat(
-      Character('o'),
-      Concat(Character('r'), Concat(Character('l'), Character('d')))
-    )
-  )
-
-  val message = Concat(Star(hello), world)
+  val message = ("hello" <*>) ~ "world"
 
   require(message matches "helloworld")
   require(message matches "world")
@@ -191,14 +167,7 @@ def main() = {
   // Once you've added all the operators, it should be
   // possible to replace the following several definitions with:
   //
-  //    val telNumber = '(' ~ digit{3} ~ ')' ~ digit{3} ~ '-' ~ digit{4}
-  //
-
-  val threeDigits = Concat(digit, Concat(digit, digit))
-  val fourDigits = Concat(threeDigits, digit)
-  val areaCode = Concat(Character('('), Concat(threeDigits, Character(')')))
-  val telNumber =
-    Concat(areaCode, Concat(threeDigits, Concat(Character('-'), fourDigits)))
+  val telNumber = '(' ~ digit{3} ~ ')' ~ digit{3} ~ '-' ~ digit{4}
 
   require(telNumber matches "(202)456-1111")
 

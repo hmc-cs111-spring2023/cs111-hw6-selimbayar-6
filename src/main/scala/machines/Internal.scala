@@ -19,3 +19,16 @@ extension (r: RegularLanguage)
     def <*> = Star(r)
     def <+> = Concat(r, Star(r))
     def apply(n: Int) : RegularLanguage = if (n == 1) r else (Concat(r, apply (n-1)))
+
+// To DFA
+    def toDFA(using alphabet: Set[Char]): DFA = regexToDFA(r, alphabet)
+
+// Implicit conversion
+def chars(r: RegularLanguage): Set[Char] = r match {
+    case Empty => Set[Char]()
+    case Epsilon => Set[Char]()
+    case Character(c) => Set[Char](c)
+    case Union(r, r2) => chars(r) ++ chars(r2)
+    case Concat(r, r2) => chars(r) ++ chars(r2)
+    case Star(r) => chars(r)
+}
